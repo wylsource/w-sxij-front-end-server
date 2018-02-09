@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lywu.sxij.dao.OperationMapper" >
+  <resultMap id="BaseResultMap" type="com.lywu.sxij.entity.Operation" >
+    <result column="operation_id" property="operationId" jdbcType="VARCHAR" />
+    <result column="operation_name" property="operationName" jdbcType="VARCHAR" />
+    <result column="operation_code" property="operationCode" jdbcType="VARCHAR" />
+    <result column="operation_intercept_url_prefix" property="operationInterceptUrlPrefix" jdbcType="VARCHAR" />
+    <result column="parent_operation_id" property="parentOperationId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    operation_id, operation_name, operation_code, operation_intercept_url_prefix, parent_operation_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lywu.sxij.entity.OperationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_w_sxij_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.lywu.sxij.entity.OperationExample" >
+    delete from t_w_sxij_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lywu.sxij.entity.Operation" >
+    insert into t_w_sxij_operation (operation_id, operation_name, operation_code, 
+      operation_intercept_url_prefix, parent_operation_id
+      )
+    values (#{operationId,jdbcType=VARCHAR}, #{operationName,jdbcType=VARCHAR}, #{operationCode,jdbcType=VARCHAR}, 
+      #{operationInterceptUrlPrefix,jdbcType=VARCHAR}, #{parentOperationId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lywu.sxij.entity.Operation" >
+    insert into t_w_sxij_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operationId != null" >
+        operation_id,
+      </if>
+      <if test="operationName != null" >
+        operation_name,
+      </if>
+      <if test="operationCode != null" >
+        operation_code,
+      </if>
+      <if test="operationInterceptUrlPrefix != null" >
+        operation_intercept_url_prefix,
+      </if>
+      <if test="parentOperationId != null" >
+        parent_operation_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operationId != null" >
+        #{operationId,jdbcType=VARCHAR},
+      </if>
+      <if test="operationName != null" >
+        #{operationName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCode != null" >
+        #{operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operationInterceptUrlPrefix != null" >
+        #{operationInterceptUrlPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="parentOperationId != null" >
+        #{parentOperationId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lywu.sxij.entity.OperationExample" resultType="java.lang.Integer" >
+    select count(*) from t_w_sxij_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_w_sxij_operation
+    <set >
+      <if test="record.operationId != null" >
+        operation_id = #{record.operationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationName != null" >
+        operation_name = #{record.operationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationCode != null" >
+        operation_code = #{record.operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationInterceptUrlPrefix != null" >
+        operation_intercept_url_prefix = #{record.operationInterceptUrlPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentOperationId != null" >
+        parent_operation_id = #{record.parentOperationId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_w_sxij_operation
+    set operation_id = #{record.operationId,jdbcType=VARCHAR},
+      operation_name = #{record.operationName,jdbcType=VARCHAR},
+      operation_code = #{record.operationCode,jdbcType=VARCHAR},
+      operation_intercept_url_prefix = #{record.operationInterceptUrlPrefix,jdbcType=VARCHAR},
+      parent_operation_id = #{record.parentOperationId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="com.lywu.sxij.entity.OperationExample" >
+    select 
+<if test="distinct" > 
+distinct 
+</if> 
+<include refid="Base_Column_List" /> 
+from t_w_sxij_operation
+<if test="_parameter != null" > 
+<include refid="Example_Where_Clause" /> 
+</if> 
+<if test="orderByClause != null" > 
+order by ${orderByClause} 
+</if> 
+limit #{pageIndex},#{pageSize} 
+
+  </select>
+</mapper>

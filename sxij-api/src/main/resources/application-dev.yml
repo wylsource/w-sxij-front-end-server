@@ -1,0 +1,36 @@
+server:
+  port: 7903
+
+spring:
+  application:
+    name: sxij-zuul
+eureka:
+  # 设置环境标识
+  environment: dev
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@localhost:7000/eureka
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${spring.cloud.client.ipAddress}:${server.port}}
+
+zuul:
+  routes:
+    sxij-web: /authen/**
+#    authen: # 保持唯一即可
+                          #      path: /authen/**
+                          #      serviceId: sxij-web
+  ignored-services: '*'
+
+#    user: # 保持唯一即可
+#      path: /user/**
+#      serviceId: cloudshopper-user
+#    order:
+#      path: /order/**
+#      serviceId: cloudshopper-order
+#    pay:
+#      path: /pay/**
+#      serviceId: cloudshopper-pay
+#    product:
+#      path: /product/**
+#      serviceId: cloudshopper-product
